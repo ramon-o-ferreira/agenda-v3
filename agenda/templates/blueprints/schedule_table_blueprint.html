@@ -1,0 +1,49 @@
+<!-- Schedule Table Group -->
+<div id="schedule_table_group">
+    <div id="schedule_table_navigation" align="center">
+        <!-- <a href="{{ url_for('home', date=schedule['buttons']['previous_month']) }}"><button type="button" class="btn btn-Link"><<>></button></a> -->
+        <a href="{{ url_for('home', date=schedule['buttons']['previous_week']) }}"><button type="button" class="btn btn-light"><</button></a>
+        <a href="{{ url_for('home', date=schedule['buttons']['today']) }}"><button type="button" class="btn btn-light">Hoje</button></a>
+        <a href="{{ url_for('home', date=schedule['buttons']['next_week']) }}"><button type="button" class="btn btn-light">></button></a>
+        <!-- <a href="{{ url_for('home', date=schedule['buttons']['next_month']) }}"><button type="button" class="btn btn-Link">>></button></a> -->
+    </div>
+    <!-- Schedule Table -->
+    <table id="schedule_table" class="table table-bordered">
+        <col width="12.5%">
+        <col width="12.5%">
+        <col width="12.5%">
+        <col width="12.5%">
+        <col width="12.5%">
+        <col width="12.5%">
+        <col width="12.5%">
+        <col width="12.5%">
+        <thead>
+            <tr>
+                <th id="technicians" scope="col" class="border border-secondary schedule-table-col-t">{{ schedule['header'][0] }}</th>
+                {% for column in schedule['header'][1:] %}
+                <th id="{{ schedule['dates'][loop.index0] }}" scope="col" class="border border-secondary schedule-table-col-{{ loop.index0 }}" onclick="show_services(this)">{{ column.split("_")[0] }}<br>{{ column.split("_")[1] }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody id="schedule_table_body">
+            {% for row in schedule['body'] %}
+            <tr>
+                <th id="{{ row[0] }}" onclick="show_services(this)" scope="row" class="border border-secondary schedule-table-col-t">{{ row[0] }}</th>
+                {% for column in row[1:] %}
+                <td id="{{ '_'.join([row[0], schedule['dates'][loop.index0]]) }}" class="border border-secondary schedule-table-col-{{ loop.index0 }}" onclick="show_services(this)"><div>{{ column }}</div></td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if current_user.nivel.value <= 2 %}
+    <div id="report_button_group" align="right">
+        <button id="report_button" type="button" class="btn btn-success" onclick="show_report()">Relatório</button>
+    </div>
+    {% endif %}
+    {% if current_user.nivel.name == "TECNICO" %}
+    <div id="report_button_group" align="right">
+        <button id="report_button" type="button" class="btn btn-success" onclick="show_next_services()">Próximos Serviços</button>
+    </div>
+    {% endif %}
+</div>

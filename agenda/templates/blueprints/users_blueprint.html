@@ -1,0 +1,42 @@
+<div id="users_page_content">
+    <!-- Users Form -->
+    <div id="users_form" class="content-section">
+        <!-- Users Flash -->
+        <div id="users_flash_message" class="alert" tabindex="-1" hidden></div>
+        {{ users_form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend id="users_form_legend" class="border-bottom mb-4" tabindex="-1">Usuários</legend>
+            {% for item in users_form %}
+            {% if item.id == "csrf_token" %}
+            {% elif item.id == "users" %}
+            <!-- {{ item.id }} -->
+            <div id="{{ item.id }}_group" class="form-group">
+                {{ item.label(class="form-control-label") }}
+                <div class="input-group mb-3">
+                    {{ item(class="form-control form-control-lg") }}
+                    <div class="input-group-append">
+                        <button id="users_update_button" onclick="update_user_data()" class="btn btn-outline-secondary btn-lg" aria-label="Update" aria-describedby="basic-addon1">Atualizar</button>
+                    </div>
+                    <div id="{{ item.id }}_error_message" class="invalid-feedback"><span></span></div>
+                </div>
+            </div>            
+            {% else %}
+            <!-- {{ item.id }} -->
+            <div id="{{ item.id }}_group" class="form-group">
+                {{ item.label(class="form-control-label") }}
+                {{ item(class="form-control form-control-lg") }}
+                <div id="{{ item.id }}_error_message" class="invalid-feedback"><span></span></div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <div id="users_buttons" style="margin: 20px 0px 0px 0px;">
+                <div style="float: right;">
+                    <button id="save_button" type="button" class="btn btn-primary " onclick="send_form('SAVE')">Salvar</button>
+                </div>
+                <div style="float: left;">
+                    <button id="delete_button" type="button" class="btn btn-danger" onclick="send_form('DELETE')" hidden>Deletar</button>
+                </div>
+            </div>
+        </fieldset> 
+    </div>
+</div>

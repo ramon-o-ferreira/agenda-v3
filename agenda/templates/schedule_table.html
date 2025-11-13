@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+<body>
+    <div id="content">
+        <div id="schedule-navigation" align="center">
+            <a href="{{ url_for('home', offset=week_offset-5) }}"><<</a>
+            <a href="{{ url_for('home', offset=week_offset-1) }}"><</a>
+            <a href="{{ url_for('home', date=today) }}">Hoje</a>
+            <a href="{{ url_for('home', offset=week_offset+1) }}">></a>
+            <a href="{{ url_for('home', offset=week_offset+5) }}">>></a>
+        </div>
+        <table id="schedule-table" class="table table-bordered" width="1110"></table>
+</body>
+{% endblock content %}

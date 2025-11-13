@@ -1,0 +1,24 @@
+<!-- Modal -->
+<div id="modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="tableModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="modal_title" class="modal-title w-100 text-center">Modal</h5>
+            </div>
+            <div id="modal_body" class="modal-body" hidden>
+                {% include '/blueprints/modal_services_list_blueprint.html' %}
+                {% include '/blueprints/modal_services_resume_blueprint.html' %}
+                {% if current_user.nivel.value <= 2 %}
+                {% include '/blueprints/modal_services_report_blueprint.html' %}
+                {% endif %}
+                {% if current_user.nivel.value <= 2 %}
+                {% include '/blueprints/services_blueprint.html' %}
+                {% endif %}
+            </div>
+            <div id="modal_footer" class="modal-footer">
+                <button id="modal_button_back" type="button" class="btn btn-secondary me-auto" onclick="show_modal('SERVICES_LIST')" hidden>Voltar</button>
+                <button id="modal_button_close" type="button" class="btn btn-secondary" data-dismiss="modal" onclick="show_modal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>

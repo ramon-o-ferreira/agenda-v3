@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Serviços</legend>
+            <span>É necessário pelo menos 1 técnico cadastrado para criar serviços.</span>
+            {% if current_user.nivel.value <= 1 %}
+            <a class="ml-2" href="{{ url_for('users') }}">Cadastrar Técnico?</a>
+            {% else %}
+            <span><br><br>Obs.: Entre em contato com o administrador do sistema e informe o problema.</span>
+            {% endif %}
+        </fieldset>
+    </div>
+{% endblock content %}

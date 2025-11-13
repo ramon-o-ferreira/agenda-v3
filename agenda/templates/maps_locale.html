@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div id="auto_complete_div">
+        <div class="input-group mb-3">
+            <input id="maps_auto_complete_input" placeholder="Digite o endereço ou nome do local" class="form-control form-control-lg">
+            <div class="input-group-append">
+                <button onclick="clear_address_field('maps_auto_complete_input')" class="btn btn-outline-secondary btn-lg" aria-label="Close" aria-describedby="basic-addon1">Limpar</button>
+            </div>
+        </div>
+
+        <!-- <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button">Button</button>
+            </div>
+            <input type="text" class="form-control" placeholder="Digite o endereço ou nome do local" aria-label="" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="text" class="form-control form-control" placeholder="Digite o endereço ou nome do local" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Button</button>
+            </div>
+        </div>
+
+        <div id="auto_complete_input_2" class="content-section"></div>
+        <button type="button" class="close" aria-label="Close"></button>
+        <div class="content-section">
+            <button class="autocomplete-icon" aria-hidden="true" role="presentation" tabindex="-1" disabled="">
+                <svg viewBox="0 0 25 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.56 13.27L21.29 19L19.8 20.49L14.07 14.76C13 15.53 11.71 16 10.3 16C6.71005 16 3.80005 13.09 3.80005 9.5C3.80005 5.91 6.71005 3 10.3 3C13.89 3 16.8 5.91 16.8 9.5C16.8 10.91 16.33 12.2 15.56 13.27ZM10.3 5C7.81005 5 5.80005 7.01 5.80005 9.5C5.80005 11.99 7.81005 14 10.3 14C12.79 14 14.8 11.99 14.8 9.5C14.8 7.01 12.79 5 10.3 5Z"></path>
+                </svg>
+            </button>
+            <input id="auto_complete_input_2" aria-autocomplete="list" autocomplete="off" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-label="Pesquisar um lugar">
+            <div class="focus-ring" style="pointer-events: none; width: 100%; height: 100%; box-sizing: border-box; position: absolute; z-index: 1000002; opacity: 0; border: 2px solid rgb(26, 115, 232);"></div>
+            <button class="btn-close" aria-label="Close" aria-describedby="basic-addon1"></button>
+        </div>
+    </div> -->
+
+{% endblock content %}

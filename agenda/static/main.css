@@ -1,0 +1,241 @@
+/* Google APIs */
+.pac-container {
+  z-index: 10000 !important;
+}
+
+/* Services Form */
+#services_form .form-group {
+  margin: 10px 0px 0px 0px;
+}
+
+#services_form #description {
+  height: 350px;
+  margin: 0px 0px 0px 0px;
+}
+
+#services_form #technicians {
+  margin: 5px 0px 0px 0px;
+}
+
+#address_input_group {
+  margin: 0px 0px 0px 0px;
+}
+
+#service_repeat_group {
+  margin: 5px 0px 0px 5px;
+}
+
+.text-danger {
+  padding: 0px 0px 0px 0px;
+}
+
+#technicians_group {
+  li input[type="checkbox"] {
+    display: grid;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+li {
+  display: grid;
+  grid-template-columns: 200px 200px;
+}
+
+/* Users Form */
+#users_form .form-group {
+  margin: 10px 0px 0px 0px;
+}
+
+/* Modal */
+#modal_services_list_group button {
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+  align-content: center;
+  text-overflow: ellipsis;
+}
+
+/* Report Table */
+#report_table {
+  table-layout: fixed;
+
+  th,
+  td {
+    height: 35px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    align-content: center;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Schedule Table */
+#schedule_table {
+  table-layout: fixed;
+
+  th,
+  td {
+    height: 70px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-align: center;
+    align-content: center;
+    text-overflow: ellipsis;
+  }
+
+  th:hover,
+  td:hover {
+    cursor: pointer;
+    backdrop-filter: brightness(50%);
+  }
+
+  #navigation_buttons button {
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 100px;
+  }
+
+  .schedule-table-col-t {
+    background-color: rgba(200, 200, 200, .85);
+  }
+
+  .schedule-table-col-0,
+  .schedule-table-col-1,
+  .schedule-table-col-2,
+  .schedule-table-col-3,
+  .schedule-table-col-4 {
+    background-color: rgba(255, 255, 255, .50);
+  }
+
+  .schedule-table-col-5,
+  .schedule-table-col-6 {
+    background-color: rgb(255, 0, 0, 0.35);
+  }
+
+  .table-col-selected-day {
+    background-color: rgba(33, 120, 74, .35);
+  }
+}
+
+hr {
+  border-color: gray;
+  opacity: 0.2;
+}
+
+/* HTML */
+html {
+  height: 100px;
+}
+
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 55px;
+  height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+.bg-steel {
+  background-color: #21784a;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+#remember {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.loader {
+  border: 25px solid #d3d3d3;
+  border-radius: 50%;
+  border-top: 25px solid #2f9b0e;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#whatsapp_disconnect_button:hover {
+  cursor: pointer;
+}

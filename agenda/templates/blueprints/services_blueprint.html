@@ -1,0 +1,108 @@
+<div id="services_page_content">
+    <!-- Services Flash -->
+    <div id="services_flash_message" class="alert" tabindex="-1" hidden></div>
+    <!-- Services Form -->
+    <div id="services_form" class="content-section">
+        {{ service_form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend id="services_form_legend" class="border-bottom mb-4" tabindex="-1">Serviços</legend>
+            {% for item in service_form %}
+            {% if item.id == "csrf_token" %}
+            {% elif item.id == "submit" %}
+            {% elif item.id == "group_date_last" %}
+            {% elif item.id == "serial_number" %}
+            {% elif item.id == "services" %}
+            <!-- {{ item.id }} -->
+            <div id="{{ item.id }}_group" class="form-group">
+                {{ item.label(class="form-control-label") }}
+                <div class="input-group mb-3">
+                    {{ item(class="form-control form-control-lg") }}
+                    <div class="input-group-append">
+                        <button id="services_update_button" onclick="update_service_data()" class="btn btn-outline-secondary btn-lg" aria-label="Update" aria-describedby="basic-addon1">Atualizar</button>
+                    </div>
+                    <div id="{{ item.id }}_error_message" class="invalid-feedback"><span></span></div>
+                </div>
+            </div>            
+            {% elif item.id == "group_date_first" %}
+            <!-- {{ item.id }} -->
+            <div>
+                <div id="service_group_dates_group" style="display: flex; width: 100%;" hidden>
+                    <div id="{{ item.id }}_group" class="form-group" style="flex: 1; margin-right: 10px;">
+                        {{ item.label(class="form-control-label") }}
+                        {{ item(class="form-control form-control-lg") }}
+                        <div id="{{ item.id }}_error_message" class="invalid-feedback"><span></span></div>
+                    </div>
+                    <div id="{{ service_form.group_date_last.id }}_group" class="form-group" style="flex: 1;">
+                        {{ service_form.group_date_last.label(class="form-control-label") }}
+                        {{ service_form.group_date_last(class="form-control form-control-lg") }}
+                        <div id="{{ service_form.group_date_last.id }}_error_message" class="invalid-feedback"><span></span></div>
+                    </div>
+                </div>
+            </div>
+            {% elif item.id == "equipment" %}
+            <!-- {{ item.id }} -->
+            <div>
+                <div id="service_group_dates_group" style="display: flex; width: 100%;">
+                    <div id="{{ item.id }}_group" class="form-group" style="margin-right: 10px; width: 80%; margin-top: 0px;">
+                        {{ item.label(class="form-control-label") }}
+                        {{ item(class="form-control form-control-lg") }}
+                        <div id="{{ item.id }}_error_message" class="invalid-feedback"><span></span></div>
+                    </div>
+                    <div id="{{ service_form.serial_number.id }}_group" class="form-group" style="width: 20%; margin-top: 0px;">
+                        {{ service_form.serial_number.label(class="form-control-label") }}
+                        {{ service_form.serial_number(class="form-control form-control-lg") }}
+                        <div id="{{ service_form.serial_number.id }}_error_message" class="invalid-feedback"><span></span></div>
+                    </div>
+                </div>
+            </div>
+            {% elif item.id == "address" %}
+            <!-- {{ item.id }} -->
+            <div id="{{ item.id }}_group" class="form-group">
+                {{ item.label(class="form-control-label") }}
+                <div class="input-group mb-3">
+                    {{ item(class="form-control form-control-lg") }}
+                    <div class="input-group-append">
+                        <button id="lab_address_button" onclick="set_lab_address()" class="btn btn-outline-secondary btn-lg" aria-label="Close" aria-describedby="basic-addon1">Lab</button>
+                        <button id="address_clear_button" onclick="clear_address_field()" class="btn btn-outline-secondary btn-lg" aria-label="Close" aria-describedby="basic-addon1">Limpar</button>
+                    </div>
+                    <div id="{{ item.id }}_error_message" class="invalid-feedback"><span></span></div>
+                </div>
+            </div>
+            {% elif item.id == "os" %}
+            <!-- {{ item.id }} -->
+            <div id="{{ item.id }}_group" class="form-group">
+                {{ item.label(class="form-control-label") }}
+                <div class="input-group mb-3">
+                    {{ item(class="form-control form-control-lg", style="max-width: 200px;") }}
+                    <div class="input-group-append">
+                        <button id="os_update_button" onclick="update_description()" class="btn btn-outline-secondary btn-lg" aria-label="Update" aria-describedby="basic-addon1">Usar OS</button>
+                    </div>
+                    <div id="{{ item.id }}_error_message" class="invalid-feedback"><span></span></div>
+                </div>
+            </div>
+            {% elif item.id == "service_repeat" %}
+            <!-- {{ service_form.service_repeat.id }} -->
+            <div id="{{ service_form.service_repeat.id }}_group" class="form-check form-switch">
+                {{ service_form.service_repeat(class="form-check-input") }}
+                {{ service_form.service_repeat.label(class="form-check-label") }}
+            </div>
+            {% else %}
+            <!-- {{ item.id }} -->
+            <div id="{{ item.id }}_group" class="form-group">
+                {{ item.label(class="form-control-label") }}
+                {{ item(class="form-control form-control-lg") }}
+                <div id="{{ item.id }}_error_message" class="invalid-feedback"><span></span></div>
+            </div>
+            {% endif %}
+            {% endfor %}
+            <div id="services_buttons" style="margin: 20px 0px 0px 0px;">
+                <div style="float: right;">
+                    <button id="save_button" type="button" class="btn btn-primary " onclick="send_form('SAVE')">Salvar</button>
+                </div>
+                <div style="float: left;">
+                    <button id="delete_button" type="button" class="btn btn-danger" onclick="send_form('DELETE')" hidden>Deletar</button>
+                </div>
+            </div>
+        </fieldset> 
+    </div>
+</div>

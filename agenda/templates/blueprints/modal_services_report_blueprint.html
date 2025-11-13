@@ -1,0 +1,32 @@
+<!-- Services Report Group -->
+<div id="modal_services_report_group" class="jumbotron" hidden>
+    <div id="report_dates_group" class="p-3" style="display: flex; width: 100%;">
+        <div id="report_date_start_group" class="form-group" style="flex: 1; margin-right: 10px;">
+            <label class="form-control-label" for="report_date_start">Data Inicial</label>
+            <input class="form-control form-control-lg" id="report_date_start" name="report_date_start" type="date" value="" required>
+            <div id="report_date_start_error_message" class="invalid-feedback"><span>Teste</span></div>
+        </div>
+        <div id="report_date_stop_group" class="form-group" style="flex: 1;">
+            <label class="form-control-label" for="report_date_stop">Data Final</label>
+            <input class="form-control form-control-lg" id="report_date_stop" name="report_date_stop" type="date" value="" required>
+            <div id="report_date_stop_error_message" class="invalid-feedback"><span></span></div>
+        </div>
+    </div>
+    <button id="report_search_button" type="button" class="btn btn-success float-end" align="left" style="margin-right: 15px;" onclick="generate_report()">Gerar Relatório</button>
+    <div id="report_result_group" hidden>
+        <table class="s-5 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
+            <tbody>
+                <tr>
+                    <td style="line-height: 20px; font-size: 20px; width: 100%; height: 20px; margin: 0;" align="left" width="100%" height="20">&#160;</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="hr" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+            <tbody>
+                <tr>
+                    <td style="line-height: 24px; font-size: 16px; border-top-width: 1px; border-top-color: #e2e8f0; border-top-style: solid; height: 1px; width: 100%; margin: 0;" align="left"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
