@@ -200,6 +200,9 @@ async function update_schedule() {
             if(date === today()) {
                 virtual_td.setAttribute("class", "border border-secondary table-col-selected-day");
                 table_column_index++;
+            } else if(holidays.includes(holidays.find(item => item.date === date))) {
+                virtual_td.setAttribute("class", "border border-secondary table-col-holiday");
+                table_column_index++;
             } else {
                 virtual_td.setAttribute("class", `border border-secondary schedule-table-col-${table_column_index++}`);
             }
@@ -210,6 +213,8 @@ async function update_schedule() {
             no_technicians_td.setAttribute("onclick", "show_services(this)");
             if(date === today()) {
                 no_technicians_td.setAttribute("class", "border border-secondary table-col-selected-day");
+            } else if(holidays.includes(holidays.find(item => item.date === date))) {
+                no_technicians_td.setAttribute("class", "border border-secondary table-col-holiday");
             } else {
                 no_technicians_td.setAttribute("class", `border border-secondary schedule-table-col-${table_column_index-1}`);
             }
@@ -273,6 +278,9 @@ async function update_schedule() {
         let column_header = document.querySelector(`[id="${date}"]`);
         if(date === today()) {
             column_header.setAttribute("class", "border border-secondary table-col-selected-day");
+            table_column_index++;
+        } else if(holidays.includes(holidays.find(item => item.date === date))) {
+            column_header.setAttribute("class", "border border-secondary table-col-holiday");
             table_column_index++;
         } else {
             column_header.setAttribute("class", `border border-secondary schedule-table-col-${table_column_index++}`);
@@ -995,6 +1003,41 @@ if(current_user.level <= 2) {
         date_start.setAttribute("max", date_stop.value);
     });
 }
+
+async function get_holidays() {
+    // Baixa todas os feriados do ano atual, um ano antes e um ano depois e salva na variável "holidays"
+    await fetch(`https://brasilapi.com.br/api/feriados/v1/${(parseInt(new Date().getFullYear()) - 1).toString()}`)
+        .then(response => response.json())
+        .then(response => {
+            response.forEach(holiday => holidays.push(holiday));
+        })
+        .catch(error => {
+            let message = "Erro ao acessar a API de feriados nacionais!\n";
+            console.error(message, error);
+        });
+    
+    await fetch(`https://brasilapi.com.br/api/feriados/v1/${new Date().getFullYear()}`)
+        .then(response => response.json())
+        .then(response => {
+            response.forEach(holiday => holidays.push(holiday));
+        })
+        .catch(error => {
+            let message = "Erro ao acessar a API de feriados nacionais!\n";
+            console.error(message, error);
+        });
+    
+    await fetch(`https://brasilapi.com.br/api/feriados/v1/${(parseInt(new Date().getFullYear()) + 1).toString()}`)
+        .then(response => response.json())
+        .then(response => {
+            response.forEach(holiday => holidays.push(holiday));
+        })
+        .catch(error => {
+            let message = "Erro ao acessar a API de feriados nacionais!\n";
+            console.error(message, error);
+        });
+}
+
+get_holidays();
 
 update_schedule();
 let intervalId = setInterval(update_schedule, 5000);

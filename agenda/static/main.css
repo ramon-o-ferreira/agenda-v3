@@ -117,6 +117,10 @@ li {
   .table-col-selected-day {
     background-color: rgba(33, 120, 74, .35);
   }
+
+  .table-col-holiday {
+    background-color: rgba(20, 20, 120, .35);
+  }
 }
 
 hr {

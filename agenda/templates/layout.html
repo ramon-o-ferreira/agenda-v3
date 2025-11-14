@@ -66,13 +66,13 @@
             {% else %}
             <div class="col-md-8">
             {% endif %}
-                <!-- {% with message = get_flashed_messages(with_categories=true)[0] %}
+                {% with message = get_flashed_messages(with_categories=true)[0] %}
                     {% if message %}
-                        <div id="main_flash_message" class="alert alert-{{ message[0] }}" tabindex="-1">{{ message[1] }}</div>
+                        <div id="main_flash_message" class="alert alert-{{ message[0] }} mt-2" tabindex="-1">{{ message[1] }}</div>
                     {% else %}
-                        <div id="main_flash_message" class="alert" tabindex="-1" hidden></div>
+                        <div id="main_flash_message" class="alert mt-2" tabindex="-1" hidden></div>
                     {% endif %}
-                {% endwith %} -->
+                {% endwith %}
                 {% block content %}{% endblock content %}
             </div>
         </div>
@@ -103,6 +103,7 @@
     {% endif %}
     {% if title == "Home" %}
     <script>
+        let holidays = [];
         const week_dates = {{ schedule["dates"] | tojson }};
         let services = {{ schedule["services"] | tojson }};
         let technicians = {{ schedule["technicians"] | tojson }};
