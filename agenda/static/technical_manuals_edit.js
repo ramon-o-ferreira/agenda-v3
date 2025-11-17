@@ -3,30 +3,35 @@ const contextMenu = $.querySelector(".wrapper");
 const shareMenu = $.querySelector(".share-menu");
 
 $.addEventListener("contextmenu", e => {
-    e.preventDefault();
+    let options_section = document.getElementById("options_section");
+    console.log(options_section)
+
+    if(e.pageX >= options_section.pageX && e.pageX <= options_section.left + options_section.offsetWidth) {
+        e.preventDefault();
     
-    let x = e.pageX,
-    y = e.pageY,
-    winWidth = window.innerWidth,
-    winHeight = window.innerHeight,
-    cmWidth = contextMenu.offsetWidth,
-    cmHeight = contextMenu.offsetHeight;
+        let x = e.pageX,
+        y = e.pageY,
+        winWidth = window.innerWidth,
+        winHeight = window.innerHeight,
+        cmWidth = contextMenu.offsetWidth,
+        cmHeight = contextMenu.offsetHeight;
 
-    console.log(x, y, winWidth, winHeight, cmWidth, cmHeight)
+        console.log(x, y, winWidth, winHeight, cmWidth, cmHeight)
 
-    if(x > (winWidth - cmWidth- shareMenu.offsetWidth)) {
-        shareMenu.style.left = "-200px";
-    } else {
-        shareMenu.style.left = "";
-        shareMenu.style.innerHeight = "-200px";
+        if(x > (winWidth - cmWidth- shareMenu.offsetWidth)) {
+            shareMenu.style.left = "-200px";
+        } else {
+            shareMenu.style.left = "";
+            shareMenu.style.innerHeight = "-200px";
+        }
+
+        x = x > winWidth - cmWidth ? winWidth - cmWidth : x;
+        y = y > winHeight - cmHeight ? winHeight - cmHeight : y;
+
+        contextMenu.style.left = `${x}px`;
+        contextMenu.style.top = `${y}px`;
+        contextMenu.classList.add("active");
     }
-
-    x = x > winWidth - cmWidth ? winWidth - cmWidth : x;
-    y = y > winHeight - cmHeight ? winHeight - cmHeight : y;
-
-    contextMenu.style.left = `${x}px`;
-    contextMenu.style.top = `${y}px`;
-    contextMenu.classList.add("active");
 });
 
 $.addEventListener("click", () => contextMenu.classList.remove("active"));
