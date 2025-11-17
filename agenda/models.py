@@ -55,3 +55,68 @@ class Servicos(database.Model, UserMixin):
     
     def __repr__(self):
         return f"Serviços: ('{self.titulo}', '{self.data}', '{self.os}')"
+
+class Vendors(database.Model, UserMixin):
+    __tablename__ = "vendors"
+
+    id = database.Column(database.Integer, primary_key=True)
+    name = database.Column(database.String(20), unique=True, nullable=False)
+    
+    type = database.relationship("Types", back_populates="vendor")
+    
+    def __repr__(self):
+        return f"Vendor: ('{self.name}')"
+
+class Types(database.Model, UserMixin):
+    __tablename__ = "types"
+
+    id = database.Column(database.Integer, primary_key=True)
+    name = database.Column(database.String(50), unique=False, nullable=False)
+    
+    vendor_id = database.Column(database.Integer, database.ForeignKey('vendors.id'))
+    vendor = database.relationship("Vendors", back_populates="type")
+
+    model = database.relationship("Models", back_populates="type")
+    
+    def __repr__(self):
+        return f"Type: ('{self.name}')"
+
+class Models(database.Model, UserMixin):
+    __tablename__ = "models"
+
+    id = database.Column(database.Integer, primary_key=True)
+    name = database.Column(database.String(50), unique=True, nullable=False)
+    
+    type_id = database.Column(database.Integer, database.ForeignKey('types.id'))
+    type = database.relationship("Types", back_populates="model")
+
+    section = database.relationship("Sections", back_populates="model")
+    
+    def __repr__(self):
+        return f"Model: ('{self.name}')"
+
+class Sections(database.Model, UserMixin):
+    __tablename__ = "sections"
+
+    id = database.Column(database.Integer, primary_key=True)
+    name = database.Column(database.String(50), unique=False, nullable=False)
+    
+    model_id = database.Column(database.Integer, database.ForeignKey('models.id'))
+    model = database.relationship("Models", back_populates="section")
+
+    manual = database.relationship("Manuals", back_populates="section")
+    
+    def __repr__(self):
+        return f"Section: ('{self.name}')"
+
+class Manuals(database.Model, UserMixin):
+    __tablename__ = "manuals"
+
+    id = database.Column(database.Integer, primary_key=True)
+    data = database.Column(database.String, unique=False, nullable=False)
+    
+    section_id = database.Column(database.Integer, database.ForeignKey('sections.id'))
+    section = database.relationship("Sections", back_populates="manual")
+
+    def __repr__(self):
+        return f"Manual: ('{self.name}')"

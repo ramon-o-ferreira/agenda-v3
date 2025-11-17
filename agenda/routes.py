@@ -123,7 +123,7 @@ def whatsapp_qrcode():
 @server.route("/manuals")
 @login_required
 def technical_manuals():
-    if(current_user.nivel.name == Nivel.TECNICO.name):
+    if(current_user.nivel.name == Nivel.TECNICO.name or current_user.nivel.name == Nivel.MASTER.name):
         return render_template('technical_manuals.html', title='Manuals')
     else:
         abort(404)
@@ -155,7 +155,8 @@ def new_master():
             print("Há usuários MASTER")
         else:
             print("Não há usuários MASTER")
-    except:
+    except ValueError:
+        print(ValueError)
         print("Tabela Usuários não foi criada")
         abort(404)
     

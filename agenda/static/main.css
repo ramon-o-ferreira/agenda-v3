@@ -243,3 +243,8 @@ a.article-title:hover {
 #whatsapp_disconnect_button:hover {
   cursor: pointer;
 }
+
+.list-group-item.active {
+  background-color: #21784a !important;
+  border-color: #21784a !important;
+}

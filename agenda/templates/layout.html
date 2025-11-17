@@ -35,6 +35,9 @@
                         <a class="nav-item nav-link" href="{{ url_for('services') }}">Serviços</a>
                         <a class="nav-item nav-link" href="{{ url_for('users') }}">Usuários</a>
                         <a class="nav-item nav-link" href="{{ url_for('whatsapp_qrcode') }}">WhatsApp</a>
+                        {% if current_user.nivel.name == "MASTER" %}
+                        <a class="nav-item nav-link" href="{{ url_for('technical_manuals') }}">Manuais</a>
+                        {% endif %}
                         {% elif current_user.is_authenticated and current_user.nivel.name == "GERENTE" %}
                         <a class="nav-item nav-link" href="{{ url_for('services') }}">Serviços</a>
                         {% elif current_user.is_authenticated and current_user.nivel.name == "TECNICO" %}
@@ -124,6 +127,9 @@
     {% endif %}
     {% if title == "Whatsapp" %}
     <script src="/static/whatsapp.js"></script>
+    {% endif %}
+    {% if title == "Manuals" %}
+    <script src="/static/technical_manuals.js"></script>
     {% endif %}
     
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
