@@ -1,16 +1,17 @@
-document.addEventListener("click", left_click => {
-    console.log(left_click.pageX, left_click.pageY);
+document.addEventListener("click", mouse => {
+    if(element_hover(document.querySelector("#options_section"), mouse)) {
+        console.log("Mouse sobre as opções");
+    }
 
     const context_menu = document.querySelector(".rigth-click-menu");
     const rect = context_menu.getBoundingClientRect();
 
-    console.log(rect.left, rect.top, rect.right, rect.bottom)
-    if(left_click.pageX < rect.left || left_click.pageX > rect.right || left_click.pageY < rect.top || left_click.pageY > rect.bottom) {
-        context_menu.classList.remove("active")
+    if(mouse.pageX < rect.left || mouse.pageX > rect.right || mouse.pageY < rect.top || mouse.pageY > rect.bottom) {
+        context_menu.classList.remove("active");
     }
 });
 
-document.addEventListener("contextmenu", rigth_click => {
+document.addEventListener("contextmenu", mouse => {
     const context_menu = document.querySelector(".rigth-click-menu");
     const share_menu = document.querySelector(".share-menu");
 
@@ -18,13 +19,11 @@ document.addEventListener("contextmenu", rigth_click => {
     share_menu.classList.remove("active");
 
     let options_section = document.getElementById("options_section");
-    const rect = options_section.getBoundingClientRect();
+    if(element_hover(options_section, mouse)) {
+        mouse.preventDefault();
     
-    if(rigth_click.pageX >= rect.left && rigth_click.pageX <= rect.right && rigth_click.pageY >= rect.top && rigth_click.pageY <= rect.bottom) {
-        rigth_click.preventDefault();
-    
-        let x = rigth_click.pageX,
-        y = rigth_click.pageY,
+        let x = mouse.pageX,
+        y = mouse.pageY,
         winWidth = window.innerWidth,
         winHeight = window.innerHeight,
         cmWidth = context_menu.offsetWidth,
@@ -46,6 +45,18 @@ document.addEventListener("contextmenu", rigth_click => {
     }
 });
 
+function element_hover(element, mouse) {
+    const rect = element.getBoundingClientRect();
+    let x = mouse.pageX;
+    let y = mouse.pageY;
+
+    if(x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 document.querySelector(".item.share").addEventListener("mouseenter", function() {
     document.querySelector(".share-menu").classList.add("active");
 });
@@ -54,7 +65,7 @@ document.querySelector(".item.share").addEventListener("mouseleave", function(mo
     const share = document.querySelector(".item.share");
     const rect = share.getBoundingClientRect();
 
-    if(mouse.clientX < rect.left || mouse.clientY < rect.top || mouse.clientY > rect.bottom) {
+    if(mouse.clientX <= rect.left || mouse.clientY <= rect.top || mouse.clientY >= rect.bottom) {
         document.querySelector(".share-menu").classList.remove("active");
     }
 });
