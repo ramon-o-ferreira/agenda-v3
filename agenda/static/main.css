@@ -249,7 +249,7 @@ a.article-title:hover {
   border-color: #21784a !important;
 }
 
-.rigth-click-menu {
+.context-menu {
   width: 250px;
   background: #ffffff;
   border-radius: 10px;
@@ -261,13 +261,13 @@ a.article-title:hover {
   position: absolute;
 }
 
-.rigth-click-menu.active {
+.context-menu.active {
   opacity: 1;
   transform: scale(1);
   position: absolute;
 }
 
-.rigth-click-menu .menu {
+.context-menu .menu {
   padding: 10px 12px;
 }
 
@@ -311,7 +311,6 @@ a.article-title:hover {
   background: #ffffff;
   width: calc(100% - 50px);
   right: -200px;
-  top: -12px;
   padding: 13px;
   box-shadow: 0 5px 10px #0000001a;
   border-radius: 10px;

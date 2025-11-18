@@ -1,5 +1,5 @@
 async function open_options_context_menu(mouse) {
-    const context_menu = document.querySelector(".rigth-click-menu");
+    const context_menu = document.querySelector(".context-menu");
     const share_menu = document.querySelector(".share-menu");
     
     if(context_menu) {context_menu.classList.remove("active"); }
@@ -25,9 +25,9 @@ async function open_options_context_menu(mouse) {
             }
 
             if(y > (window_height - share_menu_height - (share_menu.offsetHeight / 2))) {
-                share_menu.style.top = "-170px";
+                share_menu.style.top = "-222px";
             } else {
-                share_menu.style.top = "-12px";
+                share_menu.style.top = "-65px";
             }
         }
 
@@ -41,11 +41,11 @@ async function open_options_context_menu(mouse) {
 }
 
 async function close_options_context_menu(mouse) {
-    const context_menu = document.querySelector(".rigth-click-menu");
-    const rect = context_menu.getBoundingClientRect();
+    let is_over_context_menu = element_hover(document.querySelector(".context-menu"), mouse);
+    let is_over_share_menu = element_hover(document.querySelector(".share-menu"), mouse);
 
-    if(mouse.pageX < rect.left || mouse.pageX > rect.right || mouse.pageY < rect.top || mouse.pageY > rect.bottom) {
-        context_menu.classList.remove("active");
+    if(!is_over_context_menu && !is_over_share_menu) {
+        document.querySelector(".context-menu").classList.remove("active");
     }
 }
 
