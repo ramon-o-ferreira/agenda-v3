@@ -1,37 +1,64 @@
-const $ = document;
-const contextMenu = $.querySelector(".wrapper");
-const shareMenu = $.querySelector(".share-menu");
+document.addEventListener("click", left_click => {
+    console.log(left_click.pageX, left_click.pageY);
 
-$.addEventListener("contextmenu", e => {
+    const context_menu = document.querySelector(".rigth-click-menu");
+    const rect = context_menu.getBoundingClientRect();
+
+    console.log(rect.left, rect.top, rect.right, rect.bottom)
+    if(left_click.pageX < rect.left || left_click.pageX > rect.right || left_click.pageY < rect.top || left_click.pageY > rect.bottom) {
+        context_menu.classList.remove("active")
+    }
+});
+
+document.addEventListener("contextmenu", rigth_click => {
+    const context_menu = document.querySelector(".rigth-click-menu");
+    const share_menu = document.querySelector(".share-menu");
+
+    context_menu.classList.remove("active");
+    share_menu.classList.remove("active");
+
     let options_section = document.getElementById("options_section");
-    console.log(options_section)
-
-    if(e.pageX >= options_section.pageX && e.pageX <= options_section.left + options_section.offsetWidth) {
-        e.preventDefault();
+    const rect = options_section.getBoundingClientRect();
     
-        let x = e.pageX,
-        y = e.pageY,
+    if(rigth_click.pageX >= rect.left && rigth_click.pageX <= rect.right && rigth_click.pageY >= rect.top && rigth_click.pageY <= rect.bottom) {
+        rigth_click.preventDefault();
+    
+        let x = rigth_click.pageX,
+        y = rigth_click.pageY,
         winWidth = window.innerWidth,
         winHeight = window.innerHeight,
-        cmWidth = contextMenu.offsetWidth,
-        cmHeight = contextMenu.offsetHeight;
+        cmWidth = context_menu.offsetWidth,
+        cmHeight = context_menu.offsetHeight;
 
-        console.log(x, y, winWidth, winHeight, cmWidth, cmHeight)
-
-        if(x > (winWidth - cmWidth- shareMenu.offsetWidth)) {
-            shareMenu.style.left = "-200px";
+        if(x > (winWidth - cmWidth- share_menu.offsetWidth)) {
+            share_menu.style.left = "-200px";
         } else {
-            shareMenu.style.left = "";
-            shareMenu.style.innerHeight = "-200px";
+            share_menu.style.left = "";
+            share_menu.style.innerHeight = "-200px";
         }
 
         x = x > winWidth - cmWidth ? winWidth - cmWidth : x;
         y = y > winHeight - cmHeight ? winHeight - cmHeight : y;
 
-        contextMenu.style.left = `${x}px`;
-        contextMenu.style.top = `${y}px`;
-        contextMenu.classList.add("active");
+        context_menu.style.left = `${x}px`;
+        context_menu.style.top = `${y}px`;
+        context_menu.classList.add("active");
     }
 });
 
-$.addEventListener("click", () => contextMenu.classList.remove("active"));
+document.querySelector(".item.share").addEventListener("mouseenter", function() {
+    document.querySelector(".share-menu").classList.add("active");
+});
+
+document.querySelector(".item.share").addEventListener("mouseleave", function(mouse) {
+    const share = document.querySelector(".item.share");
+    const rect = share.getBoundingClientRect();
+
+    if(mouse.clientX < rect.left || mouse.clientY < rect.top || mouse.clientY > rect.bottom) {
+        document.querySelector(".share-menu").classList.remove("active");
+    }
+});
+
+document.querySelector(".share-menu").addEventListener("mouseleave", function() {
+    document.querySelector(".share-menu").classList.remove("active");
+});

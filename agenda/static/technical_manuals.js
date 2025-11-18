@@ -5,7 +5,7 @@ async function update_options(option) {
     if(button.classList.contains("active")) {
         button.classList.remove("active");
     } else {
-        for(element of document.querySelectorAll(".active")) { element.classList.remove("active"); }
+        for(element of document.querySelectorAll("#technical_manuals_group .active")) { element.classList.remove("active"); }
         button.classList.add("active");
     }
 }

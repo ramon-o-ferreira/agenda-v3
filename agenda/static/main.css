@@ -249,7 +249,7 @@ a.article-title:hover {
   border-color: #21784a !important;
 }
 
-.wrapper {
+.rigth-click-menu {
   width: 250px;
   background: #ffffff;
   border-radius: 10px;
@@ -261,13 +261,13 @@ a.article-title:hover {
   position: absolute;
 }
 
-.wrapper.active {
+.rigth-click-menu.active {
   opacity: 1;
   transform: scale(1);
   position: absolute;
 }
 
-.wrapper .menu {
+.rigth-click-menu .menu {
   padding: 10px 12px;
 }
 
@@ -296,7 +296,7 @@ a.article-title:hover {
 
 .content .setting {
   display: flex;
-  margin-top: -5px;
+  margin-top: -17px;
   padding: 5px 12px;
   border-top: 1px solid #cccccc;
 }
@@ -309,19 +309,19 @@ a.article-title:hover {
 .share .share-menu {
   position: absolute;
   background: #ffffff;
-  width: 20px;
+  width: calc(100% - 50px);
   right: -200px;
-  top: -35px;
+  top: -12px;
   padding: 13px;
   box-shadow: 0 5px 10px #0000001a;
   border-radius: 10px;
-  transition: 0.3s;
+  /* transition: 0.3s; */
   opacity: 0;
   transform: scale(0);
   pointer-events: none;
 }
 
-.share:hover .share-menu {
+.share-menu.active {
   opacity: 1;
   transform: scale(1);
   pointer-events: auto;
