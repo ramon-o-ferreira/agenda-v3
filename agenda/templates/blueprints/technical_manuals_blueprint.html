@@ -1,6 +1,6 @@
 <!-- Right Click Menu -->
 <div class="context-menu">
-    <div class="content">
+    <div class="menu-content">
         <ul class="menu">
             <li class="item">
                 <span>Adicionar</span>
@@ -42,19 +42,19 @@
                 <div class="card-body p-0 m-1 overflow-auto">
                     <div id="options_group" class="list-group list-group-flush">
                         <button type="button" class="list-group-item list-group-item-action rounded" id="1_0_0_0" style="padding-left: 2%;" onclick="update_options(this)">GE</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_0_0" style="padding-left: 7%;" onclick="update_options(this)">- Ressonância Magnética</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_1_0" style="padding-left: 12%;" onclick="update_options(this)">- Signa</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_0" style="padding-left: 17%;" onclick="update_options(this)">- Instalação</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_0" style="padding-left: 17%;" onclick="update_options(this)">- Manutenção</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_0" style="padding-left: 17%;" onclick="update_options(this)">- Troubleshooting</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_2_0" style="padding-left: 7%;" onclick="update_options(this)">- Tomografia Computadorizada</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_3_0" style="padding-left: 7%;" onclick="update_options(this)">- Mamografia</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_4_0" style="padding-left: 7%;" onclick="update_options(this)">- Densitometria</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_5_0" style="padding-left: 7%;" onclick="update_options(this)">- Raio X</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="2_0_0" style="padding-left: 2%;" onclick="update_options(this)">HITACHI</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="3_0_0" style="padding-left: 2%;" onclick="update_options(this)">SIEMENS</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="4_0_0" style="padding-left: 2%;" onclick="update_options(this)">PHILIPS</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="5_0_0" style="padding-left: 2%;" onclick="update_options(this)">TOSHIBA</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_0_0" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Ressonância Magnética</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_1_0" style="padding-left: 12%;" onclick="update_options(this)" hidden>- Signa</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_1_1" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Instalação</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_1_2" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Manutenção</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_1_3" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Troubleshooting</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_2_0_0" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Tomografia Computadorizada</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_3_0_0" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Mamografia</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_4_0_0" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Densitometria</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_5_0_0" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Raio X</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="2_0_0_0" style="padding-left: 2%;" onclick="update_options(this)">HITACHI</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="3_0_0_0" style="padding-left: 2%;" onclick="update_options(this)">SIEMENS</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="4_0_0_0" style="padding-left: 2%;" onclick="update_options(this)">PHILIPS</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="5_0_0_0" style="padding-left: 2%;" onclick="update_options(this)">TOSHIBA</button>
                     </div>
                 </div>
             </div>
@@ -62,6 +62,7 @@
         <div class="right-div pb-2 px-0 m-0 h-100" style="width: 80%;">
             <div id="content_section" class="card p-0 my-1 h-100">
                 <div class="card-body w-100 h-100 overflow-auto">
+                    <div id="card-text"></div>
                     <!-- <img id="whatsapp_image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/768px-WhatsApp.svg.png?20220228223904" alt="QR Code" style="height: 1000px;"> -->
                 </div>
             </div>
