@@ -6,44 +6,35 @@ async function update_options(button) {
         button.classList.add("active");
     }
 
-    let starter_query = "";
-    let main_zero_count = 0;
-    let main_non_zero_count = 0;
-    for(element of button.id.split("_")) {
-        if(element != '0') { starter_query += `${element}_`; main_non_zero_count++; }
-        else { main_zero_count++; }
-    };
+    let main_id = button.id;
+    let main_level = main_id.split("_").length;
 
-    if(main_zero_count === 0) {
-        update_cards_sector(button);
-        return;
-    }
+    // if(main_zero_count === 0) {
+    //     update_cards_sector(button);
+    //     return;
+    // }
 
     // Reinicia as opções
     let buttons = document.querySelectorAll("#technical_manuals_group button");
     for(button of buttons) {
-        let non_zero_count = 0;
-        for(element of button.id.split("_")) {
-            if(element != '0') { non_zero_count++; }
-        };
-
-        if(non_zero_count === 1) {
+        if(button.id.split("_").length === 1) {
             button.hidden = false;
         } else {
-            button.hidden = true;}
+            button.hidden = true;
+        }
     }
 
-    buttons = document.querySelectorAll(`[id^="${starter_query}"]`);
-    for(button of buttons) {
-        let non_zero_count = 0;
-        for(element of button.id.split("_")) {
-            if(element != '0') { non_zero_count++; }
-        };
+    let query = "";
+    for(let i = 0; i < main_id.split("_").length; i++) {
+        query += `${main_id.split("_")[i]}_`
 
-        if(non_zero_count <= main_non_zero_count + 1) {
-            button.hidden = false;
+        buttons = document.querySelectorAll(`[id^="${query}"]`);
+        for(button of buttons) {
+            let level = button.id.split("_").length;
+            if(level === i + 2) {
+                button.hidden = false;
+            }
         }
-        
     }
 }
 
