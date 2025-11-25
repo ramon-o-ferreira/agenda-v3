@@ -1,29 +1,24 @@
 <!-- Right Click Menu -->
-<div class="context-menu">
+<div id="context_menu" class="context-menu">
     <div class="menu-content">
         <ul class="menu">
-            <li class="item">
+            <li class="item share">
                 <span>Adicionar</span>
+            </li>
+            <li class="share">
+                <ul class="share-menu overflow-auto">
+                    <li class="item"><span>Item</span></li>
+                    <li class="item"><span>Grupo</span></li>
+                </ul>
             </li>
             <li class="item">
                 <span>Renomear</span>
             </li>
             <li class="item">
-                <span>Editar</span>
+                <span>Organizar</span>
             </li>
             <li class="item">
                 <span>Deletar</span>
-            </li>
-            <li class="item share">
-                <span>Compartilhar</span>
-            </li>
-            <li class="share">
-                <ul class="share-menu">
-                    <li class="item"><span>Twitter</span></li>
-                    <li class="item"><span>Instagram</span></li>
-                    <li class="item"><span>Dribbble</span></li>
-                    <li class="item"><span>Telegram</span></li>
-                </ul>
             </li>
         </ul>
         <div class="setting">
@@ -44,23 +39,27 @@
                         <button type="button" class="list-group-item list-group-item-action rounded" id="1" style="padding-left: 2%;" onclick="update_options(this)">GE</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="1_1" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Ressonância Magnética</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_1" style="padding-left: 12%;" onclick="update_options(this)" hidden>- Signa</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_1_1" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Instalação</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_1_2" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Manutenção</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_1_1_3" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Troubleshooting</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded is-item" id="1_1_1_1" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Instalação</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded is-item" id="1_1_1_2" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Manutenção</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded is-item" id="1_1_1_3" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Troubleshooting</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="1_2" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Tomografia Computadorizada</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="1_2_1" style="padding-left: 12%;" onclick="update_options(this)" hidden>- BrightSpeed</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_2_1_1" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Instalação</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_2_1_2" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Manutenção</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_2_1_3" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Troubleshooting</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded is-item" id="1_2_1_1" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Instalação</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded is-item" id="1_2_1_2" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Manutenção</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded is-item" id="1_2_1_3" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Troubleshooting</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded" id="1_2_2" style="padding-left: 12%;" onclick="update_options(this)" hidden>- HighSpeed</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded is-item" id="1_2_2_1" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Instalação</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded is-item" id="1_2_2_2" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Manutenção</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded is-item" id="1_2_2_3" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Troubleshooting</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="1_3" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Mamografia</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="1_4" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Densitometria</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="1_5" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Raio X</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="2" style="padding-left: 2%;" onclick="update_options(this)">HITACHI</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="2_1" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Ressonância Magnética</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="2_1_1" style="padding-left: 12%;" onclick="update_options(this)" hidden>- Signa</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="2_1_1_1" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Instalação</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="2_1_1_2" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Manutenção</button>
-                        <button type="button" class="list-group-item list-group-item-action rounded" id="2_1_1_3" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Troubleshooting</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded is-item" id="2_1_1_1" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Instalação</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded is-item" id="2_1_1_2" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Manutenção</button>
+                        <button type="button" class="list-group-item list-group-item-action rounded is-item" id="2_1_1_3" style="padding-left: 17%;" onclick="update_options(this)" hidden>- Troubleshooting</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="2_2" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Tomografia Computadorizada</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="2_3" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Mamografia</button>
                         <button type="button" class="list-group-item list-group-item-action rounded" id="2_4" style="padding-left: 7%;" onclick="update_options(this)" hidden>- Densitometria</button>

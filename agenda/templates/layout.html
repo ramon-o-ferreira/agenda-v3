@@ -96,6 +96,9 @@
         {% if current_user.is_authenticated %}
         const current_user = {{ {"id": current_user.id, "name": current_user.usuario, "level": current_user.nivel.value} | tojson }}
         {% endif %}
+        {% if title == "Manuals" and current_user.nivel.name == "MASTER" %}
+        let last_right_clicked_option;
+        {% endif %}
     </script>
     {% if title == "Whatsapp" %}
     <script>

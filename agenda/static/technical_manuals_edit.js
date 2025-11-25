@@ -1,4 +1,48 @@
-async function open_options_context_menu(mouse) {
+async function context_menu_action(item) {
+    console.log(last_right_clicked_option.innerText);
+    switch(item.innerText) {
+        case "Adicionar":
+            console.log("Adicionar");
+            break;
+        case "Item":
+            console.log("Item");
+            break;
+        case "Grupo":
+            console.log("Grupo");
+            break;
+        case "Renomear":
+            console.log("Renomear");
+            break;
+        case "Organizar":
+            console.log("Organizar");
+            break;
+        case "Deletar":
+            console.log("Deletar");
+            break;
+        case "Configuração":
+            console.log("Configuração");
+            break;
+        default:
+            console.log("Desconhecido");
+            break;
+    }
+}
+
+async function open_context_menu(mouse) {
+    last_right_clicked_option = null;
+    for(option of document.querySelectorAll("#options_group button")) {
+        if(option.contains(mouse.target)) {
+            last_right_clicked_option = option;
+        }
+    }
+
+    let context_menu_items = document.querySelectorAll(".item");
+    for(item of context_menu_items) {
+        if(last_right_clicked_option) {
+            
+        }
+    }
+
     const context_menu = document.querySelector(".context-menu");
     const share_menu = document.querySelector(".share-menu");
     
@@ -6,33 +50,36 @@ async function open_options_context_menu(mouse) {
     if(share_menu) { share_menu.classList.remove("active"); }
 
     let options_section = document.getElementById("options_section");
-    if(element_hover(options_section, mouse)) {
+    if(options_section.contains(mouse.target)) {
         mouse.preventDefault();
-    
+
         let x = mouse.pageX,
         y = mouse.pageY,
         window_width = window.innerWidth,
         window_height = window.innerHeight,
-        share_menu_width = context_menu.offsetWidth,
-        share_menu_height = context_menu.offsetHeight;
+        context_menu_width = context_menu.offsetWidth,
+        context_menu_height = context_menu.offsetHeight,
+        share_menu_width = share_menu.offsetWidth,
+        share_menu_height = share_menu.offsetHeight;
 
         if(share_menu) {
-            if(x > (window_width - share_menu_width - share_menu.offsetWidth)) {
+            if(x > (window_width - context_menu_width - share_menu_width)) {
                 share_menu.style.left = "-200px";
             } else {
                 share_menu.style.left = "";
                 share_menu.style.innerHeight = "-200px";
             }
 
-            if(y > (window_height - share_menu_height - (share_menu.offsetHeight / 2))) {
-                share_menu.style.top = "-222px";
+            if(share_menu_height > context_menu_height && y > (window_height - share_menu_height)) {
+                //share_menu.style.top = "-222px";
+                share_menu.style.top = `-${Math.round(share_menu_height) - 12}px`
             } else {
                 share_menu.style.top = "-65px";
             }
         }
 
-        x = x > window_width - share_menu_width ? window_width - share_menu_width : x;
-        y = y > window_height - share_menu_height ? window_height - share_menu_height : y;
+        x = x > window_width - context_menu_width ? window_width - context_menu_width : x;
+        y = y > window_height - context_menu_height ? window_height - context_menu_height : y;
 
         context_menu.style.left = `${x}px`;
         context_menu.style.top = `${y}px`;
@@ -40,37 +87,25 @@ async function open_options_context_menu(mouse) {
     }
 }
 
-async function close_options_context_menu(mouse) {
-    let is_over_context_menu = element_hover(document.querySelector(".context-menu"), mouse);
-    let is_over_share_menu = element_hover(document.querySelector(".share-menu"), mouse);
+async function close_context_menu(mouse) {
+    let is_over_context_menu = document.querySelector(".context-menu").contains(mouse.target);
+    let is_over_share_menu = document.querySelector(".share-menu").contains(mouse.target);
 
     if(!is_over_context_menu && !is_over_share_menu) {
         document.querySelector(".context-menu").classList.remove("active");
     }
 }
 
-function element_hover(element, mouse) {
-    if(element && mouse) {
-        const rect = element.getBoundingClientRect();
-        let x = mouse.pageX;
-        let y = mouse.pageY;
-
-        if(x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
-
 document.addEventListener("click", mouse => {
-    close_options_context_menu(mouse);
+    close_context_menu(mouse);
 });
 
 document.addEventListener("contextmenu", mouse => {
-    open_options_context_menu(mouse);
+    open_context_menu(mouse);
+});
+
+document.querySelector(".card-body.p-0.m-1.overflow-auto").addEventListener("scroll", mouse => {
+    close_context_menu(mouse);
 });
 
 document.querySelector(".item.share").addEventListener("mouseenter", () => {
@@ -89,3 +124,26 @@ document.querySelector(".item.share").addEventListener("mouseleave", mouse => {
 document.querySelector(".share-menu").addEventListener("mouseleave", () => {
     document.querySelector(".share-menu").classList.remove("active");
 });
+
+document.querySelectorAll(".item").forEach(item => {
+    item.addEventListener('click', () => {
+        edit_context_menu();
+        context_menu_action(item);
+    });
+});
+
+// function element_hover(element, mouse) {
+//     if(element && mouse) {
+//         const rect = element.getBoundingClientRect();
+//         let x = mouse.pageX;
+//         let y = mouse.pageY;
+//
+//         if(x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+//             return true;
+//         } else {
+//             return false;
+//         }
+//     } else {
+//         return false;
+//     }
+// }
