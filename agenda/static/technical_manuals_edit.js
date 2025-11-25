@@ -28,6 +28,21 @@ async function context_menu_action(item) {
     }
 }
 
+function edit_context_menu(mouse) {
+    if(element_hover(document.getElementById("options_section"), mouse)) {
+        mouse.preventDefault();
+    }
+    
+    let items = document.querySelectorAll(".item");
+    for(item of items) {
+        if(last_right_clicked_option === null) {
+            item.hidden = false;
+        } else if(last_right_clicked_option && last_right_clicked_option.classList.contains("is-active")) {
+            console.log("Is item");
+        }
+    }
+}
+
 async function open_context_menu(mouse) {
     last_right_clicked_option = null;
     for(option of document.querySelectorAll("#options_group button")) {
@@ -37,11 +52,6 @@ async function open_context_menu(mouse) {
     }
 
     let context_menu_items = document.querySelectorAll(".item");
-    for(item of context_menu_items) {
-        if(last_right_clicked_option) {
-            
-        }
-    }
 
     const context_menu = document.querySelector(".context-menu");
     const share_menu = document.querySelector(".share-menu");
@@ -50,7 +60,7 @@ async function open_context_menu(mouse) {
     if(share_menu) { share_menu.classList.remove("active"); }
 
     let options_section = document.getElementById("options_section");
-    if(options_section.contains(mouse.target)) {
+    if(element_hover(options_section, mouse)) {
         mouse.preventDefault();
 
         let x = mouse.pageX,
@@ -101,6 +111,7 @@ document.addEventListener("click", mouse => {
 });
 
 document.addEventListener("contextmenu", mouse => {
+    edit_context_menu(mouse);
     open_context_menu(mouse);
 });
 
@@ -127,23 +138,22 @@ document.querySelector(".share-menu").addEventListener("mouseleave", () => {
 
 document.querySelectorAll(".item").forEach(item => {
     item.addEventListener('click', () => {
-        edit_context_menu();
         context_menu_action(item);
     });
 });
 
-// function element_hover(element, mouse) {
-//     if(element && mouse) {
-//         const rect = element.getBoundingClientRect();
-//         let x = mouse.pageX;
-//         let y = mouse.pageY;
-//
-//         if(x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-//             return true;
-//         } else {
-//             return false;
-//         }
-//     } else {
-//         return false;
-//     }
-// }
+function element_hover(element, mouse) {
+    if(element && mouse) {
+        const rect = element.getBoundingClientRect();
+        let x = mouse.pageX;
+        let y = mouse.pageY;
+
+        if(x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
