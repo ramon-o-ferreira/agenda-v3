@@ -2,58 +2,110 @@ async function context_menu_action(item) {
     console.log(last_right_clicked_option ? last_right_clicked_option.innerText : "None");
     switch(item.innerText) {
         case "Adicionar":
-            console.log("Adicionar");
+            console.log(item.innerText);
             break;
         case "Item":
-            console.log("Item");
+            console.log(item.innerText);
             break;
         case "Grupo":
-            console.log("Grupo");
+            console.log(item.innerText);
+            break;
+        case "Subitem":
+            console.log(item.innerText);
+            break;
+        case "Subgrupo":
+            console.log(item.innerText);
             break;
         case "Renomear":
-            console.log("Renomear");
+            console.log(item.innerText);
             break;
         case "Organizar":
-            console.log("Organizar");
+            console.log(item.innerText);
             break;
         case "Deletar":
-            console.log("Deletar");
+            console.log(item.innerText);
             break;
         case "Configuração":
-            console.log("Configuração");
+            console.log(item.innerText);
             break;
         default:
-            console.log("Desconhecido");
+            console.log(item.innerText);
             break;
     }
 }
 
-function edit_context_menu(mouse) {
-    last_right_clicked_option = null;
-    for(button of document.querySelectorAll("#options_group button")) {
-        if(element_hover(button, mouse)) {
-            last_right_clicked_option = button;
-            break;
+function edit_context_menu(mouse, section) {
+    if(section == "options") { 
+        last_right_clicked_option = null;
+        for(button of document.querySelectorAll("#options_group button")) {
+            if(element_hover(button, mouse)) {
+                last_right_clicked_option = button;
+                break;
+            }
         }
-    }
 
-    let items = document.querySelectorAll(".item");
-    for(item of items) {
-        if(last_right_clicked_option === null) {
-            item.hidden = false;
-        } else if(last_right_clicked_option.classList.contains("is-item")) {
-            console.log("Is item");
+        let is_root = false;
+        let is_group = false;
+        let is_item = false;
+        if(last_right_clicked_option) {
+            if(last_right_clicked_option.classList.contains("is-item")) { is_item = true; }
+            else { is_group = true; }
         } else {
-            item.hidden = true;
+            is_root = true;
         }
+
+        let items = document.querySelectorAll(".item");
+        for(item of items) {
+            switch(item.innerText) {
+                case "Adicionar":
+                    if(is_root || is_group) { item.hidden = false; }
+                    else { item.hidden = true; }
+                    break;
+                case "Item":
+                    if(is_root || is_group) { item.hidden = false; }
+                    else { item.hidden = true; }
+                    break;
+                case "Grupo":
+                    if(is_root || is_group) { item.hidden = false; }
+                    else { item.hidden = true; }
+                    break;
+                case "Subitem":
+                    if(is_group) { item.hidden = false; }
+                    else { item.hidden = true; }
+                    break;
+                case "Subgrupo":
+                    if(is_group) { item.hidden = false; }
+                    else { item.hidden = true; }
+                    break;
+                case "Renomear":
+                    if(is_group || is_item) { item.hidden = false; }
+                    else { item.hidden = true; }
+                    break;
+                case "Organizar":
+                    if(is_group || is_item) { item.hidden = false; }
+                    else { item.hidden = true; }
+                    break;
+                case "Deletar":
+                    if(is_group || is_item) { item.hidden = false; }
+                    else { item.hidden = true; }
+                    break;
+                case "Configuração":
+                    if(is_root || is_group || is_item) { item.hidden = false; }
+                    else { item.hidden = true; }
+                    break;
+                default:
+                    item.hidden = true;
+                    break;
+            }
+        }
+    } else {
+        console.log("Cards selecionado");
     }
 }
 
 async function open_context_menu(mouse) {
-    let context_menu_items = document.querySelectorAll(".item");
-
     const context_menu = document.querySelector(".context-menu");
-    const share_menu = document.querySelector(".share-menu");
+    const share_menu = document.querySelector(".expand-menu");
 
     if(context_menu) {context_menu.classList.remove("active"); }
     if(share_menu) { share_menu.classList.remove("active"); }
@@ -98,7 +150,7 @@ async function open_context_menu(mouse) {
 
 async function close_context_menu(mouse) {
     let is_over_context_menu = element_hover(document.querySelector(".context-menu"), mouse);
-    let is_over_share_menu = element_hover(document.querySelector(".share-menu"), mouse);
+    let is_over_share_menu = element_hover(document.querySelector(".expand-menu"), mouse);
 
     if(is_over_context_menu || is_over_share_menu) {
         let items = document.querySelectorAll("#context_menu .item");
@@ -119,11 +171,18 @@ document.addEventListener("click", mouse => {
 });
 
 document.addEventListener("contextmenu", mouse => {
+    let section;
     if(element_hover(document.getElementById("options_section"), mouse)) {
         mouse.preventDefault();
+        section = "options";
     }
 
-    edit_context_menu(mouse);
+    if(element_hover(document.getElementById("cards_section"), mouse)) {
+        mouse.preventDefault();
+        section = "cards";
+    }
+
+    edit_context_menu(mouse, section);
     open_context_menu(mouse);
 });
 
@@ -131,21 +190,25 @@ document.querySelector(".card-body.p-0.m-1.overflow-auto").addEventListener("scr
     close_context_menu(mouse);
 });
 
-document.querySelector(".item.share").addEventListener("mouseenter", () => {
-    document.querySelector(".share-menu").classList.add("active");
-});
-
-document.querySelector(".item.share").addEventListener("mouseleave", mouse => {
-    const share = document.querySelector(".item.share");
-    const rect = share.getBoundingClientRect();
-
-    if(mouse.clientX <= rect.left || mouse.clientY <= rect.top || mouse.clientY >= rect.bottom) {
-        document.querySelector(".share-menu").classList.remove("active");
+document.querySelector(".item.expand").addEventListener("mouseenter", () => {
+    for(item of document.querySelectorAll(".expand-menu")) {
+        item.classList.add("active");
     }
 });
 
-document.querySelector(".share-menu").addEventListener("mouseleave", () => {
-    document.querySelector(".share-menu").classList.remove("active");
+document.querySelector(".expand-menu").addEventListener("mouseleave", () => {
+    for(item of document.querySelectorAll(".expand-menu")) {
+        item.classList.remove("active");
+    }
+});
+
+document.querySelector(".item.expand").addEventListener("mouseleave", mouse => {
+    const share = document.querySelector(".item.expand");
+    const rect = share.getBoundingClientRect();
+
+    if(mouse.clientX <= rect.left || mouse.clientY <= rect.top || mouse.clientY >= rect.bottom) {
+        document.querySelector(".expand-menu").classList.remove("active");
+    }
 });
 
 document.querySelectorAll(".item").forEach(item => {
