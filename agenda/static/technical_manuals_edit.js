@@ -1,5 +1,5 @@
 async function context_menu_action(item) {
-    console.log(last_right_clicked_option.innerText);
+    console.log(last_right_clicked_option ? last_right_clicked_option.innerText : "None");
     switch(item.innerText) {
         case "Adicionar":
             console.log("Adicionar");
@@ -29,33 +29,32 @@ async function context_menu_action(item) {
 }
 
 function edit_context_menu(mouse) {
-    if(element_hover(document.getElementById("options_section"), mouse)) {
-        mouse.preventDefault();
+    last_right_clicked_option = null;
+    for(button of document.querySelectorAll("#options_group button")) {
+        if(element_hover(button, mouse)) {
+            last_right_clicked_option = button;
+            break;
+        }
     }
-    
+
     let items = document.querySelectorAll(".item");
     for(item of items) {
         if(last_right_clicked_option === null) {
             item.hidden = false;
-        } else if(last_right_clicked_option && last_right_clicked_option.classList.contains("is-active")) {
+        } else if(last_right_clicked_option.classList.contains("is-item")) {
             console.log("Is item");
+        } else {
+            item.hidden = true;
         }
     }
 }
 
 async function open_context_menu(mouse) {
-    last_right_clicked_option = null;
-    for(option of document.querySelectorAll("#options_group button")) {
-        if(option.contains(mouse.target)) {
-            last_right_clicked_option = option;
-        }
-    }
-
     let context_menu_items = document.querySelectorAll(".item");
 
     const context_menu = document.querySelector(".context-menu");
     const share_menu = document.querySelector(".share-menu");
-    
+
     if(context_menu) {context_menu.classList.remove("active"); }
     if(share_menu) { share_menu.classList.remove("active"); }
 
@@ -98,10 +97,19 @@ async function open_context_menu(mouse) {
 }
 
 async function close_context_menu(mouse) {
-    let is_over_context_menu = document.querySelector(".context-menu").contains(mouse.target);
-    let is_over_share_menu = document.querySelector(".share-menu").contains(mouse.target);
+    let is_over_context_menu = element_hover(document.querySelector(".context-menu"), mouse);
+    let is_over_share_menu = element_hover(document.querySelector(".share-menu"), mouse);
 
-    if(!is_over_context_menu && !is_over_share_menu) {
+    if(is_over_context_menu || is_over_share_menu) {
+        let items = document.querySelectorAll("#context_menu .item");
+        for(item of items) {
+            if(element_hover(item, mouse)) {
+                if(item.classList.contains("share")) { continue; }
+                else { document.querySelector(".context-menu").classList.remove("active"); }
+                break;
+            }
+        }
+    } else {
         document.querySelector(".context-menu").classList.remove("active");
     }
 }
@@ -111,6 +119,10 @@ document.addEventListener("click", mouse => {
 });
 
 document.addEventListener("contextmenu", mouse => {
+    if(element_hover(document.getElementById("options_section"), mouse)) {
+        mouse.preventDefault();
+    }
+
     edit_context_menu(mouse);
     open_context_menu(mouse);
 });
