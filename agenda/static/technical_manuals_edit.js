@@ -93,6 +93,14 @@ function edit_context_menu(mouse, section) {
                     if(is_root || is_group || is_item) { item.hidden = false; }
                     else { item.hidden = true; }
                     break;
+                case "Ativado":
+                    if(is_root || is_group || is_item) { item.hidden = false; }
+                    else { item.hidden = true; }
+                    break;
+                case "Visibilidade":
+                    if(is_root || is_group || is_item) { item.hidden = false; }
+                    else { item.hidden = true; }
+                    break;
                 default:
                     item.hidden = true;
                     break;
@@ -103,48 +111,48 @@ function edit_context_menu(mouse, section) {
     }
 }
 
-async function open_context_menu(mouse) {
+async function open_context_menu(mouse, button) {
     const context_menu = document.querySelector(".context-menu");
-    const share_menu = document.querySelector(".expand-menu");
+    for(add_menu of document.querySelectorAll(".expand-menu")) {
+        if(context_menu) { context_menu.classList.remove("active"); }
+        if(add_menu) { add_menu.classList.remove("active"); }
 
-    if(context_menu) {context_menu.classList.remove("active"); }
-    if(share_menu) { share_menu.classList.remove("active"); }
+        let options_section = document.getElementById("options_section");
+        if(element_hover(options_section, mouse)) {
+            mouse.preventDefault();
 
-    let options_section = document.getElementById("options_section");
-    if(element_hover(options_section, mouse)) {
-        mouse.preventDefault();
+            let x = mouse.pageX,
+            y = mouse.pageY,
+            window_width = window.innerWidth,
+            window_height = window.innerHeight,
+            context_menu_width = context_menu.offsetWidth,
+            context_menu_height = context_menu.offsetHeight,
+            add_menu_width = add_menu.offsetWidth,
+            add_menu_height = add_menu.offsetHeight;
 
-        let x = mouse.pageX,
-        y = mouse.pageY,
-        window_width = window.innerWidth,
-        window_height = window.innerHeight,
-        context_menu_width = context_menu.offsetWidth,
-        context_menu_height = context_menu.offsetHeight,
-        share_menu_width = share_menu.offsetWidth,
-        share_menu_height = share_menu.offsetHeight;
+            if(add_menu) {
+                if(x > (window_width - context_menu_width - add_menu_width)) {
+                    add_menu.style.left = "-200px";
+                } else {
+                    add_menu.style.left = "";
+                    add_menu.style.innerHeight = "-200px";
+                }
 
-        if(share_menu) {
-            if(x > (window_width - context_menu_width - share_menu_width)) {
-                share_menu.style.left = "-200px";
-            } else {
-                share_menu.style.left = "";
-                share_menu.style.innerHeight = "-200px";
+                if(add_menu_height > context_menu_height && y > (window_height - add_menu_height)) {
+                    //add_menu.style.top = "-222px";
+                    add_menu.style.top = `-${Math.round(add_menu_height) - 12}px`
+                } else {
+                    add_menu.style.top = "-65px";
+                }
             }
 
-            if(share_menu_height > context_menu_height && y > (window_height - share_menu_height)) {
-                //share_menu.style.top = "-222px";
-                share_menu.style.top = `-${Math.round(share_menu_height) - 12}px`
-            } else {
-                share_menu.style.top = "-65px";
-            }
+            x = x > window_width - context_menu_width ? window_width - context_menu_width : x;
+            y = y > window_height - context_menu_height ? window_height - context_menu_height : y;
+
+            context_menu.style.left = `${x}px`;
+            context_menu.style.top = `${y}px`;
+            context_menu.classList.add("active");
         }
-
-        x = x > window_width - context_menu_width ? window_width - context_menu_width : x;
-        y = y > window_height - context_menu_height ? window_height - context_menu_height : y;
-
-        context_menu.style.left = `${x}px`;
-        context_menu.style.top = `${y}px`;
-        context_menu.classList.add("active");
     }
 }
 
@@ -156,7 +164,7 @@ async function close_context_menu(mouse) {
         let items = document.querySelectorAll("#context_menu .item");
         for(item of items) {
             if(element_hover(item, mouse)) {
-                if(item.classList.contains("share")) { continue; }
+                if(item.classList.contains("expand")) { continue; }
                 else { document.querySelector(".context-menu").classList.remove("active"); }
                 break;
             }
@@ -164,6 +172,43 @@ async function close_context_menu(mouse) {
     } else {
         document.querySelector(".context-menu").classList.remove("active");
     }
+}
+
+function element_hover(element, mouse) {
+    if(element && mouse) {
+        const rect = element.getBoundingClientRect();
+        let x = mouse.pageX;
+        let y = mouse.pageY;
+
+        if(x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+for(let element of document.querySelectorAll(".item.expand")) {
+    element.addEventListener("mouseenter", () => {
+        element.nextElementSibling.querySelector(".expand-menu").classList.add("active");
+    });
+};
+
+for(let element of document.querySelectorAll(".expand-menu")) {
+    element.addEventListener("mouseleave", () => {
+        element.classList.remove("active");
+    });
+}
+
+for(let element of document.querySelectorAll(".item.expand")) {
+    element.addEventListener("mouseleave", mouse => {
+        let context_menu_rect = element.getBoundingClientRect();
+        if(mouse.clientX <= context_menu_rect.left || mouse.clientY <= context_menu_rect.top || mouse.clientY >= context_menu_rect.bottom) {
+            element.nextElementSibling.querySelector(".expand-menu").classList.remove("active");
+        }
+    });
 }
 
 document.addEventListener("click", mouse => {
@@ -190,45 +235,21 @@ document.querySelector(".card-body.p-0.m-1.overflow-auto").addEventListener("scr
     close_context_menu(mouse);
 });
 
-document.querySelector(".item.expand").addEventListener("mouseenter", () => {
-    for(item of document.querySelectorAll(".expand-menu")) {
-        item.classList.add("active");
-    }
-});
-
-document.querySelector(".expand-menu").addEventListener("mouseleave", () => {
-    for(item of document.querySelectorAll(".expand-menu")) {
-        item.classList.remove("active");
-    }
-});
-
-document.querySelector(".item.expand").addEventListener("mouseleave", mouse => {
-    const share = document.querySelector(".item.expand");
-    const rect = share.getBoundingClientRect();
-
-    if(mouse.clientX <= rect.left || mouse.clientY <= rect.top || mouse.clientY >= rect.bottom) {
-        document.querySelector(".expand-menu").classList.remove("active");
-    }
-});
-
 document.querySelectorAll(".item").forEach(item => {
     item.addEventListener('click', () => {
         context_menu_action(item);
     });
 });
 
-function element_hover(element, mouse) {
-    if(element && mouse) {
-        const rect = element.getBoundingClientRect();
-        let x = mouse.pageX;
-        let y = mouse.pageY;
-
-        if(x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-            return true;
-        } else {
-            return false;
+document.addEventListener("mousemove", (mouse) => {
+    for(let context_menu of document.querySelectorAll(".item.expand")) {
+        let expand_menu = context_menu.nextElementSibling.querySelector(".expand-menu");
+        
+        if(expand_menu.classList.contains("active") && !element_hover(expand_menu, mouse)) {
+            let context_menu_rect = context_menu.getBoundingClientRect();
+            if(mouse.clientY < context_menu_rect.top || mouse.clientY > context_menu_rect.bottom) {
+                expand_menu.classList.remove("active");
+            }
         }
-    } else {
-        return false;
     }
-}
+});
